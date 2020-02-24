@@ -7,7 +7,8 @@ export const config = {
     "dialect": "postgres",
     "aws_region": "eu-central-1",
     "aws_profile": process.env.AWS_PROFILE,
-    "aws_media_bucket": process.env.S3_BUCKET
+    "aws_media_bucket": process.env.S3_BUCKET,
+    "jwt_secret": process.env.JWT_SECRET
   },
   "prod": {
     "username": "",
