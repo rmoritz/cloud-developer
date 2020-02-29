@@ -25,7 +25,7 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 }
 
 function generateJWT(user: User): string {
-    return jwt.sign(user.id, c.jwt_secret);
+    return jwt.sign(user.email, c.jwt_secret);
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -83,7 +83,7 @@ router.post('/login', async (req: Request, res: Response) => {
     // Generate JWT
     const jwt = generateJWT(user);
 
-    res.status(200).send({ auth: true, token: jwt, user: user.short()});
+    res.status(200).send({ auth: true, token: jwt, user: user.short() });
 });
 
 //register a new user
@@ -103,7 +103,7 @@ router.post('/', async (req: Request, res: Response) => {
     // find the user
     const user = await User.findByPk(email);
     // check that user doesnt exists
-    if(user) {
+    if (user) {
         return res.status(422).send({ auth: false, message: 'User may already exist' });
     }
 
@@ -119,7 +119,7 @@ router.post('/', async (req: Request, res: Response) => {
     // Generate JWT
     const jwt = generateJWT(savedUser);
 
-    res.status(201).send({token: jwt, user: savedUser.short()});
+    res.status(201).send({auth:true, token: jwt, user: savedUser.short()});
 });
 
 router.get('/', async (req: Request, res: Response) => {
